@@ -1,0 +1,22 @@
+{
+  "name": "atom-tinyrave",
+  "main": "./lib/atom-tinyrave",
+  "version": "0.0.0",
+  "description": "Execute TinyRave tracks in JavaScript or CoffeeScript.",
+  "keywords": [
+    "tinyrave",
+    "audio",
+    "webaudio",
+    "music",
+    "coffeescript",
+    "javascript"
+  ],
+  "repository": "https://github.com/atom/atom-tinyrave",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+    "coffee-script": "^1.7.1"
+  }
+}
