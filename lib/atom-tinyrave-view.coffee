@@ -22,7 +22,7 @@ class AtomTinyraveView
 
     # Create message element
     message = document.createElement('div')
-    message.textContent = "Playing"
+    message.textContent = "Now playing. Ready to share with the world? Upload to TinyRave.com"
     message.classList.add('message')
     @element.appendChild(message)
 
