@@ -13,9 +13,10 @@ buildSample = (timeOffset) ->
   Math.sin 55 * Math.PI * 2 * Math.pow(timeOffset, 0.3)
 ```
 
-_Note: this file will need a `.coffee` extension. Otherwise set the language to CoffeeScript._
+_Give the file a `.coffee` extension or manually set the language to CoffeeScript._
 
 Press `cmd + enter` to play (or `ctrl + enter` on Windows).
 
 Press `cmd + .` to stop.
 
+A complete debugger is provided by Atom's Developer Tools.
