@@ -16,7 +16,7 @@ class AudioPlayer
     @_worker = new AudioWorker(STD_LIB + compiledSource)
     @_audioSource = @globalAudioContext.createScriptProcessor(constants.AUDIO_BUFFER_SIZE, 0, 2)
     @_audioSource.onaudioprocess = (event) =>
-      volume = 0.4
+      volume = 0.25
       left  = event.outputBuffer.getChannelData(0)
       right = event.outputBuffer.getChannelData(1)
       nextBuffer = @_worker.pop()
