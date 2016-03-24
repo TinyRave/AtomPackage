@@ -19,4 +19,4 @@ Press `cmd + enter` to play (or `ctrl + enter` on Windows).
 
 Press `cmd + .` to stop.
 
-A complete debugger is provided by Atom's Developer Tools.
+Open Atom's Developer Tools for a complete debugger.
