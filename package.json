@@ -1,8 +1,8 @@
 {
-  "name": "atom-tinyrave",
+  "name": "TinyRave",
   "main": "./lib/atom-tinyrave",
   "version": "0.0.1",
-  "description": "Execute TinyRave tracks in JavaScript or CoffeeScript.",
+  "description": "Execute TinyRave.com tracks in Atom. Supports JavaScript and CoffeeScript.",
   "keywords": [
     "tiny",
     "rave",
