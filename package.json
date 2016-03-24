@@ -1,9 +1,11 @@
 {
   "name": "atom-tinyrave",
   "main": "./lib/atom-tinyrave",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Execute TinyRave tracks in JavaScript or CoffeeScript.",
   "keywords": [
+    "tiny",
+    "rave",
     "tinyrave",
     "audio",
     "webaudio",
