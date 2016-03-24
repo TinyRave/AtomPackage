@@ -2,6 +2,7 @@
 
 Execute [TinyRave](http://tinyrave.com) tracks in Atom!
 
+![Preview](https://raw.githubusercontent.com/emcmanus/atom-tinyrave/01c2fa9c1b5c10a55a8583e9b3ecd1e8bbdf3d53/preview.png)
 
 ## How to Use
 
@@ -17,3 +18,4 @@ _Note: this file will need a `.coffee` extension. Otherwise set the language to 
 Press `cmd + enter` to play (or `ctrl + enter` on Windows).
 
 Press `cmd + .` to stop.
+
