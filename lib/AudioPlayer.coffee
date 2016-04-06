@@ -1,5 +1,5 @@
 constants = require('./constants')
-STD_LIB = require('./StdLib').STD_LIB
+TRACK_PREFIX = require('./adapter_and_stdlib').TRACK_PREFIX
 AudioWorker = require('./AudioWorker')
 
 module.exports =
@@ -13,7 +13,7 @@ class AudioPlayer
     try @_audioSource.disconnect()
     @_elapsedTime = 0
     @_worker.terminate() if @_worker
-    @_worker = new AudioWorker(STD_LIB + compiledSource)
+    @_worker = new AudioWorker(TRACK_PREFIX + compiledSource)
     @_audioSource = @globalAudioContext.createScriptProcessor(constants.AUDIO_BUFFER_SIZE, 0, 2)
     @_audioSource.onaudioprocess = (event) =>
       volume = 0.25
