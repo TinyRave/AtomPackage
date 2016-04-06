@@ -11,11 +11,8 @@ class AudioWorker
     @worker.onerror = @_workerError
     @worker.onmessage = @_workerMessage
 
-    if window.yieldWorker
-      window.yieldWorker(@worker)
-
   pop: ->
-    @worker.postMessage(["generate", constants.AUDIO_BUFFER_SIZE, constants.SAMPLE_RATE])
+    @worker.postMessage(["generate"])
     if @_buffer?
       buffer = @_buffer
       @_buffer = null
