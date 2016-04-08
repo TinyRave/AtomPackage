@@ -1,5 +1,3 @@
-CoffeeScript = require "coffee-script"
-
 #
 # Top panel: "Now playing track. Cmd+. to stop."
 #
@@ -10,6 +8,15 @@ class AtomTinyraveView
     # Create root element
     @element = document.createElement('div')
     @element.classList.add('atom-tinyrave')
+
+    webViewContainer = document.createElement('div')
+    webViewContainer.setAttribute('style', 'width: 400px; height: 40px; position: absolute; right: 80px; top: -3px; background-color: #282C34;')
+    @webView = document.createElement('webview')
+    @webView.setAttribute('width', '400')
+    @webView.setAttribute('height', '40')
+    @webView.setAttribute('src', "#{__dirname}/TrackRuntime.html")
+    webViewContainer.appendChild(@webView)
+    @element.appendChild(webViewContainer)
 
     button = document.createElement('button')
     button.classList.add('tinyrave-btn')
@@ -35,3 +42,6 @@ class AtomTinyraveView
 
   getElement: ->
     @element
+
+  getWebView: ->
+    @webView

@@ -1,6 +1,5 @@
 CoffeeScript = require 'coffee-script'
 AtomTinyraveView = require './atom-tinyrave-view'
-AudioPlayer = require('./AudioPlayer')
 {CompositeDisposable} = require 'atom'
 
 module.exports = AtomTinyrave =
@@ -28,10 +27,6 @@ module.exports = AtomTinyrave =
     atomTinyraveViewState: @atomTinyraveView.serialize()
 
   play: ->
-    if @audioPlayer?
-      @audioPlayer.pause()
-    @audioPlayer ||= new AudioPlayer
-
     # Compile the editor contents if coffeescript
     source = atom.workspace.getActiveTextEditor().getText()
     grammar = atom.workspace.getActiveTextEditor().getGrammar().name
@@ -46,9 +41,12 @@ module.exports = AtomTinyrave =
 
     @modalPanel.show()
 
-    @audioPlayer.setTrackSource(source)
-    @audioPlayer.play()
+    view = @atomTinyraveView.getWebView()
+    view.openDevTools()
+    view.executeJavaScript("runEncodedTrackSource(\"#{encodeURIComponent(source)}\")")
 
   stop: ->
-    @audioPlayer?.stop()
+    view = @atomTinyraveView.getWebView()
+    view.closeDevTools()
+    view.executeJavaScript("stopTrack()")
     @modalPanel.hide()
