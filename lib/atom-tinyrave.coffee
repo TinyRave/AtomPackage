@@ -40,6 +40,7 @@ module.exports = AtomTinyrave =
       atom.notifications.addError "Only CoffeeScript and JavaScript are supported.", {dismissable: true}
 
     @modalPanel.show()
+    @atomTinyraveView.setPlaying(true)
 
     view = @atomTinyraveView.getWebView()
     view.openDevTools()
@@ -47,6 +48,5 @@ module.exports = AtomTinyrave =
 
   stop: ->
     view = @atomTinyraveView.getWebView()
-    view.closeDevTools()
     view.executeJavaScript("stopTrack()")
-    @modalPanel.hide()
+    @atomTinyraveView.setPlaying(false)

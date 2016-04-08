@@ -18,17 +18,17 @@ class AtomTinyraveView
     webViewContainer.appendChild(@webView)
     @element.appendChild(webViewContainer)
 
-    button = document.createElement('button')
+    @button = button = document.createElement('button')
     button.classList.add('tinyrave-btn')
     button.classList.add('btn')
     button.classList.add('btn-info')
     button.textContent = "Stop"
-    button.addEventListener 'click', (event) ->
-      atom.commands.dispatch(document.querySelector('atom-text-editor'), 'atom-tinyrave:stop')
+    button.addEventListener 'click', (event) =>
+      @toggleClicked()
     @element.appendChild(button)
 
     # Create message element
-    message = document.createElement('div')
+    @message = message = document.createElement('div')
     message.textContent = "Now playing. Ready to share with the world? Upload to TinyRave.com"
     message.classList.add('message')
     @element.appendChild(message)
@@ -45,3 +45,17 @@ class AtomTinyraveView
 
   getWebView: ->
     @webView
+
+  toggleClicked: ->
+    if @playing
+      atom.commands.dispatch(document.querySelector('atom-text-editor'), 'atom-tinyrave:stop')
+    else
+      atom.commands.dispatch(document.querySelector('atom-text-editor'), 'atom-tinyrave:play')
+
+  setPlaying: (@playing) ->
+    if @playing
+      @button.textContent = "Stop"
+      @message.textContent = "Now playing. Ready to share with the world? Upload to TinyRave.com"
+    else
+      @button.textContent = "Play"
+      @message.textContent = "Ready to share with the world? Upload to TinyRave.com"
