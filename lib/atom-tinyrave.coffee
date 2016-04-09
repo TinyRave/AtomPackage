@@ -42,6 +42,7 @@ module.exports = AtomTinyrave =
     @modalPanel.show()
     @atomTinyraveView.setPlaying(true)
 
+    @atomTinyraveView.initializeWebView()
     view = @atomTinyraveView.getWebView()
     view.openDevTools()
     view.executeJavaScript("runEncodedTrackSource(\"#{encodeURIComponent(source)}\")")

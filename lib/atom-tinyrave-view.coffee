@@ -1,6 +1,7 @@
 #
 # Top panel: "Now playing track. Cmd+. to stop."
 #
+fs = require 'fs'
 
 module.exports =
 class AtomTinyraveView
@@ -10,10 +11,8 @@ class AtomTinyraveView
     @element.classList.add('atom-tinyrave')
 
     webViewContainer = document.createElement('div')
-    webViewContainer.setAttribute('style', 'width: 400px; height: 40px; position: absolute; right: 80px; top: -3px; background-color: #282C34;')
+    webViewContainer.setAttribute('style', 'width: 300px; height: 30px; position: absolute; right: 80px; top: 3px; background-color: #282C34;')
     @webView = document.createElement('webview')
-    @webView.setAttribute('width', '400')
-    @webView.setAttribute('height', '40')
     @webView.setAttribute('src', "#{__dirname}/TrackRuntime.html")
     webViewContainer.appendChild(@webView)
     @element.appendChild(webViewContainer)
@@ -59,3 +58,9 @@ class AtomTinyraveView
     else
       @button.textContent = "Play"
       @message.textContent = "Ready to share with the world? Upload to TinyRave.com"
+
+  initializeWebView: ->
+    unless @webViewInitialized
+      @webViewInitialized = true
+      @webView.executeJavaScript(fs.readFileSync("#{__dirname}/player_internals.js", 'utf8'))
+      @webView.executeJavaScript(fs.readFileSync("#{__dirname}/track_runtime.js", 'utf8'))
