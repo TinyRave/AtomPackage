@@ -1,6 +1,7 @@
 CoffeeScript = require 'coffee-script'
 AtomTinyraveView = require './atom-tinyrave-view'
 {CompositeDisposable} = require 'atom'
+coffeeSourceToMappedJS = require('./mapped_eval').coffeeSourceToMappedJS
 
 module.exports = AtomTinyrave =
   atomTinyraveView: null
@@ -26,13 +27,21 @@ module.exports = AtomTinyrave =
   serialize: ->
     atomTinyraveViewState: @atomTinyraveView.serialize()
 
+  toggle: ->
+    if @atomTinyraveView.getPlaying()
+      @stop()
+    else
+      play()
+
   play: ->
     # Compile the editor contents if coffeescript
     source = atom.workspace.getActiveTextEditor().getText()
     grammar = atom.workspace.getActiveTextEditor().getGrammar().name
     if grammar == "CoffeeScript"
       try
-        source = CoffeeScript.compile(source, {bare: true})
+        filename = atom.workspace.getActiveTextEditor().getTitle()
+        fullPath = atom.workspace.getActiveTextEditor().getPath()
+        source = coffeeSourceToMappedJS(source, filename, fullPath)
       catch error
         atom.notifications.addError error.toString(), {dismissable: true}
         console.log error
@@ -42,12 +51,12 @@ module.exports = AtomTinyrave =
     @modalPanel.show()
     @atomTinyraveView.setPlaying(true)
 
-    @atomTinyraveView.initializeWebView()
-    view = @atomTinyraveView.getWebView()
-    view.openDevTools()
-    view.executeJavaScript("runEncodedTrackSource(\"#{encodeURIComponent(source)}\")")
+    @atomTinyraveView.initializeSandbox()
+    view = @atomTinyraveView.getSandbox()
+    view.contentWindow.eval("runEncodedTrackSource(\"#{encodeURIComponent(source)}\")")
+    atom.openDevTools()
 
   stop: ->
-    view = @atomTinyraveView.getWebView()
-    view.executeJavaScript("stopTrack()")
+    view = @atomTinyraveView.getSandbox()
+    view.contentWindow.eval("stopTrack()")
     @atomTinyraveView.setPlaying(false)

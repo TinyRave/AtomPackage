@@ -8,8 +8,10 @@
 # For more detailed documentation see
 # https://atom.io/docs/latest/behind-atom-keymaps-in-depth
 'atom-workspace atom-text-editor:not([mini])':
-  'ctrl-enter': 'atom-tinyrave:play'
-  'cmd-enter':  'atom-tinyrave:play'
+  'ctrl-enter':     'atom-tinyrave:play'
+  'cmd-enter':      'atom-tinyrave:play'
+# Lower specificity – when you want to stop the music you want to be able to do
+# it from anywhere
 'atom-workspace':
-  'ctrl-.': 'atom-tinyrave:stop'
-  'cmd-.':  'atom-tinyrave:stop'
+  'ctrl-.':         'atom-tinyrave:stop'
+  'cmd-.':          'atom-tinyrave:stop'

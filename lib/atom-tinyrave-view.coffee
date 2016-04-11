@@ -2,6 +2,8 @@
 # Top panel: "Now playing track. Cmd+. to stop."
 #
 fs = require 'fs'
+coffeeFileToMappedJS = require('./mapped_eval').coffeeFileToMappedJS
+coffeeSourceToMappedJS = require('./mapped_eval').coffeeSourceToMappedJS
 
 module.exports =
 class AtomTinyraveView
@@ -10,12 +12,13 @@ class AtomTinyraveView
     @element = document.createElement('div')
     @element.classList.add('atom-tinyrave')
 
-    webViewContainer = document.createElement('div')
-    webViewContainer.setAttribute('style', 'width: 300px; height: 30px; position: absolute; right: 80px; top: 3px; background-color: #282C34;')
-    @webView = document.createElement('webview')
-    @webView.setAttribute('src', "#{__dirname}/TrackRuntime.html")
-    webViewContainer.appendChild(@webView)
-    @element.appendChild(webViewContainer)
+    sandboxContainer = document.createElement('div')
+    sandboxContainer.setAttribute('style', 'width: 300px; height: 30px; position: absolute; right: 80px; top: 3px; background-color: #282C34;')
+    @sandbox = document.createElement('iframe')
+    @sandbox.setAttribute('src', "file://#{__dirname}/TrackRuntime.html")
+    @sandbox.setAttribute('style', 'border: 0;')
+    sandboxContainer.appendChild(@sandbox)
+    @element.appendChild(sandboxContainer)
 
     @button = button = document.createElement('button')
     button.classList.add('tinyrave-btn')
@@ -23,7 +26,7 @@ class AtomTinyraveView
     button.classList.add('btn-info')
     button.textContent = "Stop"
     button.addEventListener 'click', (event) =>
-      @toggleClicked()
+      @togglePlaying()
     @element.appendChild(button)
 
     # Create message element
@@ -42,15 +45,16 @@ class AtomTinyraveView
   getElement: ->
     @element
 
-  getWebView: ->
-    @webView
+  getSandbox: ->
+    @sandbox
 
-  toggleClicked: ->
+  togglePlaying: ->
     if @playing
       atom.commands.dispatch(document.querySelector('atom-text-editor'), 'atom-tinyrave:stop')
     else
       atom.commands.dispatch(document.querySelector('atom-text-editor'), 'atom-tinyrave:play')
 
+  getPlaying: -> @playing
   setPlaying: (@playing) ->
     if @playing
       @button.textContent = "Stop"
@@ -59,8 +63,10 @@ class AtomTinyraveView
       @button.textContent = "Play"
       @message.textContent = "Ready to share with the world? Upload to TinyRave.com"
 
-  initializeWebView: ->
-    unless @webViewInitialized
-      @webViewInitialized = true
-      @webView.executeJavaScript(fs.readFileSync("#{__dirname}/player_internals.js", 'utf8'))
-      @webView.executeJavaScript(fs.readFileSync("#{__dirname}/track_runtime.js", 'utf8'))
+  initializeSandbox: ->
+    unless @sandboxInitialized
+      @sandboxInitialized = true
+
+      playerInternals = coffeeFileToMappedJS("#{__dirname}/player_internals.coffee", "player_internals.coffee")
+      @sandbox.contentWindow.eval(playerInternals)
+      @sandbox.contentWindow.eval(fs.readFileSync("#{__dirname}/track_runtime.js", 'utf8'))
