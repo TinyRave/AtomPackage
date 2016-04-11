@@ -29,6 +29,7 @@ class @AudioWorker
     @worker.onmessage = @_workerMessage
 
     if window.yieldWorker
+      # Allows us to add a native error handler in Atom
       window.yieldWorker(@worker)
 
   pop: ->
