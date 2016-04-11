@@ -1,9 +1,6 @@
 #
 # Top panel: "Now playing track. Cmd+. to stop."
 #
-fs = require 'fs'
-coffeeFileToMappedJS = require('./mapped_eval').coffeeFileToMappedJS
-coffeeSourceToMappedJS = require('./mapped_eval').coffeeSourceToMappedJS
 
 module.exports =
 class AtomTinyraveView
@@ -62,11 +59,3 @@ class AtomTinyraveView
     else
       @button.textContent = "Play"
       @message.textContent = "Ready to share with the world? Upload to TinyRave.com"
-
-  initializeSandbox: ->
-    unless @sandboxInitialized
-      @sandboxInitialized = true
-
-      playerInternals = coffeeFileToMappedJS("#{__dirname}/player_internals.coffee", "player_internals.coffee")
-      @sandbox.contentWindow.eval(playerInternals)
-      @sandbox.contentWindow.eval(fs.readFileSync("#{__dirname}/track_runtime.js", 'utf8'))

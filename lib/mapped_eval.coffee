@@ -15,8 +15,11 @@ module.exports.coffeeSourceToMappedJS = (coffeeSource, filename, path) ->
   dataURI = 'data:application/json;charset=utf-8,' + encodeURI(compilerResult.v3SourceMap)
 
   # Final result
-  "#{jsSource}\n//# sourceMappingURL=#{dataURI}"
+  {
+    source: "#{jsSource}\n//# sourceMappingURL=#{dataURI}"
+    sourceMap: JSON.parse(compilerResult.v3SourceMap)
+  }
 
 module.exports.coffeeFileToMappedJS = (path, filename) ->
   coffeeSource = fs.readFileSync(path, 'utf8')
-  module.exports.coffeeSourceToMappedJS(coffeeSource, filename, path)
+  module.exports.coffeeSourceToMappedJS(coffeeSource, filename, path).source
