@@ -61,6 +61,7 @@ module.exports = AtomTinyrave =
 
     # Purge any error messages from last session
     if @messages
+      @messages.detach()
       @messages.clear()
 
     view = @atomTinyraveView.getSandbox()
