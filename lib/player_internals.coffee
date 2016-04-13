@@ -45,7 +45,7 @@ class @AudioWorker
     # 4. After generating its first frame we expect the worker to keep up with
     #    realtime demands. Show a warning if it can't.
     # 5. There's an extra principle here to not spin the worker clock so never
-    #    queue multiple "generate" requests when we're only waiting on one frame
+    #    queue multiple "generate" requests when we only need one frame.
 
     buffer = @_buffer
     @_buffer = null

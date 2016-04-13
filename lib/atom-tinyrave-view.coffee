@@ -10,7 +10,7 @@ class AtomTinyraveView
     @element.classList.add('atom-tinyrave')
 
     sandboxContainer = document.createElement('div')
-    sandboxContainer.setAttribute('style', 'width: 300px; height: 30px; position: absolute; right: 80px; top: 3px; background-color: #282C34;')
+    sandboxContainer.setAttribute('style', 'width: 300px; height: 30px; position: absolute; right: 80px; top: 1px; background-color: #282C34;')
     @sandbox = document.createElement('iframe')
     @sandbox.setAttribute('src', "file://#{__dirname}/TrackRuntime.html")
     @sandbox.setAttribute('style', 'border: 0;')
