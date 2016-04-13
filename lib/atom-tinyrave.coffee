@@ -83,8 +83,9 @@ module.exports = AtomTinyrave =
             @messages = new MessagePanelView(title: 'Track Errors')
           sourcePosition = { line: error.lineno, column: error.colno }
           if @sourceMap
-            consumer = new SourceMap.SourceMapConsumer(@sourceMap)
-            sourcePosition = consumer.originalPositionFor({line: error.lineno, column: error.colno})
+            try
+              consumer = new SourceMap.SourceMapConsumer(@sourceMap)
+              sourcePosition = consumer.originalPositionFor({line: error.lineno, column: error.colno})
           @messages.attach()
           @messages.add new LineMessageView(
             line: sourcePosition.line
