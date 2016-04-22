@@ -1,6 +1,6 @@
 # TinyRave
 
-Execute [TinyRave](http://tinyrave.com) tracks in Atom!
+Run [TinyRave](http://tinyrave.com) tracks in [Atom](http://atom.io)!
 
 ![Preview](https://raw.githubusercontent.com/emcmanus/atom-tinyrave/master/preview.png)
 
