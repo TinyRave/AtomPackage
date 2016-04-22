@@ -19,4 +19,4 @@ Press `cmd + enter` to play (or `ctrl + enter` on Windows).
 
 Press `cmd + .` to stop.
 
-Open Atom's Developer Tools for a complete debugger.
+Most errors will show up in the editor, but a few warnings are displayed only in the Developer Tools console.
